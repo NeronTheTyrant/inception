@@ -24,7 +24,7 @@ services:
       - "443:443"
     restart: always
     volumes: 
-      - "wordpress_data:/var/ww/html/wordpress"
+      - "wordpress_data:/var/www/html/wordpress"
   wordpress: 
     build: req/wordpress
     container_name: wordpress
@@ -40,18 +40,18 @@ services:
       - "9000:9000"
     restart: always
     volumes: 
-      - "wordpress_data://var/www/html/wordpress"
+      - "wordpress_data:/var/www/html/wordpress"
 volumes: 
   db_data: 
     driver: local
     driver_opts: 
-       device: /home/martin/data/mysql
+       device: /home/mlebard/data/mysql
        o: bind
-       type: nonde
+       type: none
   wordpress_data: 
      driver: local
      driver_opts: 
-       device: /home/martin/data/wordpress
+       device: /home/mlebard/data/wordpress
        o: bind
        type: none
 version: "3.8"
