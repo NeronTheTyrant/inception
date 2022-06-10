@@ -4,7 +4,7 @@ services:
     build: req/mariadb
     container_name: mariadb
     environment: 
-      - "MYSQL_DB=${DB_NAME}"
+      - "MYSQL_DATABASE=${DB_NAME}"
       - "MYSQL_USER=${DB_USER}"
       - "MYSQL_PASSWORD=${DB_PASSWORD}"
       - "MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}"
@@ -12,30 +12,33 @@ services:
     ports: 
       - "3306:3306"
     restart: always
-    volumes: 
-      - "db_data:/var/lib/mysql"
+    volumes:
+      - type: volume
+        source: db_data
+        target: /var/lib/mysql 
+         # - db_data:/var/lib/mysql
   nginx: 
-    build: req/nginx
+    #build: req/nginx
     container_name: nginx
     depends_on: 
       - wordpress
-    image: "nginx:test"
+    image: "nginx:latest"
     ports: 
       - "443:443"
     restart: always
     volumes: 
       - "wordpress_data:/var/www/html/wordpress"
   wordpress: 
-    build: req/wordpress
+    #build: req/wordpress
     container_name: wordpress
     depends_on: 
       - mariadb
     environment: 
-      - "MYSQL_DB=${DB_NAME}"
+      - "MYSQL_DATABASE=${DB_NAME}"
       - "MYSQL_USER=${DB_USER}"
       - "MYSQL_PASSWORD=${DB_PASSWORD}"
       - "MYSQL_HOSTNAME=${DB_HOSTNAME}"
-    image: "wordpress:test"
+    image: "wordpress:latest"
     ports: 
       - "9000:9000"
     restart: always
@@ -43,13 +46,13 @@ services:
       - "wordpress_data:/var/www/html/wordpress"
 volumes: 
   db_data: 
-    driver: local
+    #  driver: local
     driver_opts: 
        device: /home/mlebard/data/mysql
        o: bind
        type: none
   wordpress_data: 
-     driver: local
+    #   driver: local
      driver_opts: 
        device: /home/mlebard/data/wordpress
        o: bind
