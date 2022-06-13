@@ -18,11 +18,11 @@ services:
         target: /var/lib/mysql 
          # - db_data:/var/lib/mysql
   nginx: 
-    #build: req/nginx
+    build: req/nginx
     container_name: nginx
     depends_on: 
       - wordpress
-    image: "nginx:latest"
+    image: "nginx:test"
     ports: 
       - "443:443"
     restart: always
