@@ -1,14 +1,14 @@
 --- 
 services: 
   mariadb: 
-    build: req/mariadb
-    container_name: mariadb
+    build: req/mariadb-test
+    container_name: mariadbtest
     environment: 
       - "MYSQL_DATABASE=${DB_NAME}"
       - "MYSQL_USER=${DB_USER}"
       - "MYSQL_PASSWORD=${DB_PASSWORD}"
       - "MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}"
-    image: "mariadb:test"
+    image: "mariadbtest:test"
     ports: 
       - "3306:3306"
     restart: always
