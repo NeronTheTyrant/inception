@@ -1,22 +1,19 @@
 FROM debian:buster
 
-RUN apt-get update && apt-get -y install php-curl \
-php-gd \
-php-intl \
-php-mbstring \
-php-soap \
-php-xml \
-php-xmlrpc \
-php-zip \
+RUN apt-get update && apt-get -y install \
 wget \
-systemctl
-
-
+php \
+php-cgi \
+php-mysql \
+php-fpm \
+php-pdo \
+php-gd php-cli \
+php-mbstring 
 
 RUN mkdir /run/php
 
 EXPOSE 9000
 
-CMD ["systemctl", "status", "php*", "|", "grep", "fpm.service"]
+#CMD ["service", "php*", "status"]
 
-#CMD ["/usr/sbin/php-fpm7.3", "-F"]
+CMD ["/usr/sbin/php-fpm7.3", "-F"]
