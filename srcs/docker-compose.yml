@@ -29,7 +29,7 @@ services:
     volumes: 
       - "wordpress_data:/var/www/html/wordpress"
   wordpress: 
-    #build: req/wordpress
+    build: req/wordpress
     container_name: wordpress
     depends_on: 
       - mariadb
