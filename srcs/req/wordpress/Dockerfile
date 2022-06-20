@@ -12,6 +12,8 @@ php-mbstring
 
 RUN mkdir /run/php
 
+RUN sed -i 's/listen = 127\.0\.0\.1:9000/listen = 0\.0\.0\.0:9000/g' /etc/php/7.3/fpm/pool.d/www.conf
+
 EXPOSE 9000
 
 #CMD ["service", "php*", "status"]
