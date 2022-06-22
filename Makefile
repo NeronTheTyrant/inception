@@ -7,7 +7,7 @@ run:
 	@sudo mkdir -p /home/mlebard/data/wordpress
 	@sudo mkdir -p /home/mlebard/data/mysql
 	@echo "Building containers ..."
-	@docker compose -f $(COMPOSE) up --build
+	@docker compose -f $(COMPOSE) --verbose up --build
 
 up: 
 	@echo "Building volume directories ..."
@@ -29,7 +29,7 @@ clean:
 	@docker container prune 
 #	@docker rm `docker ps -qa`
 	@echo "Deleting all images ..."
-	@docker rm -f `docker images -qa`
+	@docker image rm -f `docker images -qa`
 	@echo "Deleting all volumes ..."
 	@docker volume prune
 	@echo "Deleting all network ..."
