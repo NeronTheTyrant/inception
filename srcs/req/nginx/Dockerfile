@@ -7,6 +7,10 @@ RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/ssl/ml
 
 COPY conf/nginx.conf /etc/nginx/conf.d
 
+COPY ./index.php /usr/share/nginx/html
+
+RUN rm /usr/share/nginx/html/index.html
+
 EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]

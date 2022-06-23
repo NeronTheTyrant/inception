@@ -17,7 +17,12 @@ services:
         source: db_data
         target: /var/lib/mysql 
          # - db_data:/var/lib/mysql
-  nginx: 
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+  nginx:
     build: req/nginx
     container_name: nginx
     depends_on: 
@@ -32,7 +37,8 @@ services:
     build: req/wordpress
     container_name: wordpress
     depends_on: 
-      - mariadb
+      mariadb:
+        condition: service_healthy
     environment: 
       - "MYSQL_DATABASE=${DB_NAME}"
       - "MYSQL_USER=${DB_USER}"
@@ -57,4 +63,4 @@ volumes:
        device: /home/mlebard/data/wordpress
        o: bind
        type: none
-version: "3.8"
+version: "2.1"
