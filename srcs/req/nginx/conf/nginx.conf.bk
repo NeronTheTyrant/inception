@@ -1,0 +1,26 @@
+server {
+	listen 443 ssl;
+	listen [::]:443 ssl;
+	
+	#listen 80;
+	#listen [::]:80;
+
+
+	server_name mlebard.42.fr;
+    	ssl_certificate /etc/ssl/mlebard.42.fr.pem;
+    	ssl_certificate_key /etc/ssl/mlebard.42.fr.key;
+	ssl_protocols		TLSv1.2;
+
+    	root	/usr/share/nginx/html;
+	index index.php index.html;
+
+	location / {
+		try_files $uri $uri/ = 404;
+	}
+
+	location ~ \.php$ {
+           include /etc/nginx/fastcgi.conf;
+           fastcgi_pass wordpress:9000;
+         }
+}
+
