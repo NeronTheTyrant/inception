@@ -19,8 +19,10 @@ else
 	wp core download --path=/var/www/html/ --locale=en_US --allow-root
 	#create config file with environment values
 	wp config create --dbname="$MYSQL_DATABASE" --dbuser="$MYSQL_USER" --dbpass="$MYSQL_PASSWORD" --dbhost="$MYSQL_HOSTNAME" --path=/var/www/html/ --allow-root
-	#wp core install --url="mlebard.42.fr" --title="Bonjour" --admin_user="martinlebg" --admin_password="bglemartin" --admin_email="martinlebg@gmail.com" --path="/var/www/html"
-	#wp user create martin martin@mlebard.42.fr --role="author" --user_pass="admin1234" --path="/var/www/html"
+	#install wordpress with url, title, admin user, password and email
+	wp core install --url="$WP_URL" --title="Inception" --admin_user="$WP_ADMIN" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="$WP_ADMIN_MAIL" --path="/var/www/html" --allow-root
+	#create additional non-admin user
+	wp user create $WP_USER $WP_USER_MAIL --role="author" --user_pass="$WP_USER_PASSWORD" --path="/var/www/html" --allow-root
 	
 	touch /var/www/html/.installed
 
