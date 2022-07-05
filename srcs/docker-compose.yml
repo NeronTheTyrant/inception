@@ -13,15 +13,14 @@ services:
       - "3306:3306"
     restart: always
     volumes:
-      - type: volume
-        source: db_data
-        target: /var/lib/mysql 
-         # - db_data:/var/lib/mysql
+      - "db_data:/var/lib/mysql"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 10s
       retries: 5
+    networks:
+      - docker_network
   nginx:
     build: req/nginx
     container_name: nginx
@@ -33,6 +32,8 @@ services:
     restart: always
     volumes: 
       - "wordpress_data:/var/www/html"
+    networks:
+      - docker_network
   wordpress: 
     build: req/wordpress
     container_name: wordpress
@@ -57,6 +58,12 @@ services:
     restart: always
     volumes: 
       - "wordpress_data:/var/www/html"
+    networks:
+      - docker_network
+
+networks:
+  docker_network:
+
 volumes: 
   db_data: 
     #  driver: local

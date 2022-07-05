@@ -4,8 +4,8 @@ all: run
 
 run: 
 	@echo "Building volume directories ..."
-	@mkdir -p ~/data/wordpress
-	@mkdir -p ~/data/mysql
+	@sudo mkdir -p ~/data/wordpress
+	@sudo mkdir -p ~/data/mysql
 	@echo "Building containers ..."
 	@docker compose -f $(COMPOSE) --verbose up --build
 
@@ -35,7 +35,7 @@ clean:
 	@echo "Deleting all network ..."
 	@docker network prune
 	@echo "Deleting all data ..."
-	@rm -rf ~/data/wordpress
-	@rm -rf ~/data/mysql
+	@sudo rm -rf ~/data/wordpress
+	@sudo rm -rf ~/data/mysql
 	@echo "Deleting all"
 
